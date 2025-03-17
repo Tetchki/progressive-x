@@ -85,7 +85,9 @@ py::tuple find6DPoses(
 	for (size_t i = 0; i < NUM_TENTS; i++)
 		ptr3[i] = static_cast<int>(labeling[i]);
 	
-	py::array_t<double> poses_ = py::array_t<double>({ static_cast<size_t>(num_models) * 3, 4 });
+	//py::array_t<double> poses_ = py::array_t<double>({ static_cast<size_t>(num_models) * 3, 4 });
+	std::vector<size_t> shape = { static_cast<size_t>(num_models) * 3, 4 };
+    py::array_t<double> poses_(shape);
 	py::buffer_info buf2 = poses_.request();
 	double *ptr2 = (double *)buf2.ptr;
 	for (size_t i = 0; i < 12 * num_models; i++)
@@ -152,7 +154,9 @@ py::tuple findHomographies(
 	for (size_t i = 0; i < NUM_TENTS; i++)
 		ptr3[i] = static_cast<int>(labeling[i]);
 	
-	py::array_t<double> homographies_ = py::array_t<double>({ static_cast<size_t>(num_models) * 3, 3 });
+	//py::array_t<double> homographies_ = py::array_t<double>({ static_cast<size_t>(num_models) * 3, 3 });
+	std::vector<size_t> shape = { static_cast<size_t>(num_models) * 3, 3 };
+    py::array_t<double> homographies_(shape);
 	py::buffer_info buf2 = homographies_.request();
 	double *ptr2 = (double *)buf2.ptr;
 	for (size_t i = 0; i < 9 * num_models; i++)
@@ -229,7 +233,10 @@ py::tuple findVanishingPoints(
 	for (size_t i = 0; i < NUM_TENTS; i++)
 		ptr3[i] = static_cast<int>(labeling[i]);
 	
-	py::array_t<double> vanishingPoints_ = py::array_t<double>({ static_cast<size_t>(num_models), 3 });
+	//py::array_t<double> vanishingPoints_ = py::array_t<double>({ static_cast<size_t>(num_models), 3 });
+	std::vector<size_t> shape = { static_cast<size_t>(num_models), 3 };
+    py::array_t<double> vanishingPoints_(shape);
+
 	py::buffer_info buf2 = vanishingPoints_.request();
 	double *ptr2 = (double *)buf2.ptr;
 	for (size_t i = 0; i < 3 * num_models; i++)
@@ -304,7 +311,10 @@ py::tuple findLines(
 	for (size_t i = 0; i < NUM_TENTS; i++)
 		ptr3[i] = static_cast<int>(labeling[i]);
 	
-	py::array_t<double> lines_ = py::array_t<double>({ static_cast<size_t>(num_models), 3 });
+	//py::array_t<double> lines_ = py::array_t<double>({ static_cast<size_t>(num_models), 3 });
+	std::vector<size_t> shape = { static_cast<size_t>(num_models), 3 };
+    py::array_t<double> lines_(shape);
+
 	py::buffer_info buf2 = lines_.request();
 	double *ptr2 = (double *)buf2.ptr;
 	for (size_t i = 0; i < 3 * num_models; i++)
@@ -370,7 +380,10 @@ py::tuple findTwoViewMotions(
 	for (size_t i = 0; i < NUM_TENTS; i++)
 		ptr3[i] = static_cast<int>(labeling[i]);
 	
-	py::array_t<double> motions_ = py::array_t<double>({ static_cast<size_t>(num_models) * 3, 3 });
+	//py::array_t<double> motions_ = py::array_t<double>({ static_cast<size_t>(num_models) * 3, 3 });
+	std::vector<size_t> shape = { static_cast<size_t>(num_models) * 3, 3 };
+    py::array_t<double> motions_(shape);
+
 	py::buffer_info buf2 = motions_.request();
 	double *ptr2 = (double *)buf2.ptr;
 	for (size_t i = 0; i < 9 * num_models; i++)
