@@ -63,16 +63,12 @@ code?
         std::shared_ptr<Child> child;
     };
 
-    PYBIND11_PLUGIN(example) {
-        py::module m("example");
-
+    PYBIND11_MODULE(example, m) {
         py::class_<Child, std::shared_ptr<Child>>(m, "Child");
 
         py::class_<Parent, std::shared_ptr<Parent>>(m, "Parent")
            .def(py::init<>())
            .def("get_child", &Parent::get_child);
-
-        return m.ptr();
     }
 
 The following Python code will cause undefined behavior (and likely a
@@ -81,6 +77,7 @@ segmentation fault).
 .. code-block:: python
 
    from example import Parent
+
    print(Parent().get_child())
 
 The problem is that ``Parent::get_child()`` returns a pointer to an instance of
@@ -127,7 +124,7 @@ top namespace level before any binding code:
 
 .. code-block:: cpp
 
-    PYBIND11_DECLARE_HOLDER_TYPE(T, SmartPtr<T>);
+    PYBIND11_DECLARE_HOLDER_TYPE(T, SmartPtr<T>)
 
 The first argument of :func:`PYBIND11_DECLARE_HOLDER_TYPE` should be a
 placeholder name that is used as a template parameter of the second argument.
@@ -139,7 +136,7 @@ by default. Specify
 
 .. code-block:: cpp
 
-    PYBIND11_DECLARE_HOLDER_TYPE(T, SmartPtr<T>, true);
+    PYBIND11_DECLARE_HOLDER_TYPE(T, SmartPtr<T>, true)
 
 if ``SmartPtr<T>`` can always be initialized from a ``T*`` pointer without the
 risk of inconsistencies (such as multiple independent ``SmartPtr`` instances
@@ -157,10 +154,10 @@ specialized:
 .. code-block:: cpp
 
     // Always needed for custom holder types
-    PYBIND11_DECLARE_HOLDER_TYPE(T, SmartPtr<T>);
+    PYBIND11_DECLARE_HOLDER_TYPE(T, SmartPtr<T>)
 
     // Only needed if the type's `.get()` goes by another name
-    namespace pybind11 { namespace detail {
+    namespace PYBIND11_NAMESPACE { namespace detail {
         template <typename T>
         struct holder_helper<SmartPtr<T>> { // <-- specialization
             static const T *get(const SmartPtr<T> &p) { return p.getPointer(); }
