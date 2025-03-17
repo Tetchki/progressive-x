@@ -1,0 +1,5 @@
+numpy~=2.2.4
+matplotlib~=3.10.1
+opencv-python~=4.11.0.86
+packaging~=24.2
+pylsd-nova~=1.2.1
