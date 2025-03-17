@@ -19,12 +19,6 @@ $ make
 # Install Python package and compile C++
 
 ```bash
-python3 ./setup.py install
-```
-
-or
-
-```bash
 pip3 install -e .
 ```
 
