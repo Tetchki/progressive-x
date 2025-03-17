@@ -1,3 +1,6 @@
+# Modifications
+Modified files to run with Python 3.12 for our EPFL CS-413 Computational Photography project
+
 # Progressive-X
 
 The Progressive-X algorithm proposed in paper: Daniel Barath and Jiri Matas; Progressive-X: Efficient, Anytime, Multi-Model Fitting Algorithm, International Conference on Computer Vision, 2019. 
@@ -7,7 +10,7 @@ It is available at https://arxiv.org/pdf/1906.02290
 
 To build and install C++ only `Progressive-X`, clone or download this repository and then build the project by CMAKE. 
 ```shell
-$ git clone --recursive https://github.com/danini/progressive-x.git
+$ git clone --recursive git@github.com:Tetchki/progressive-x.git
 $ cd build
 $ cmake ..
 $ make
