@@ -6,7 +6,7 @@ import sysconfig
 import platform
 import subprocess
 
-from distutils.version import LooseVersion
+from packaging.version import parse  # Replacing LooseVersion
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
 from setuptools.command.test import test as TestCommand
@@ -29,9 +29,9 @@ class CMakeBuild(build_ext):
                 ", ".join(e.name for e in self.extensions))
 
         if platform.system() == "Windows":
-            cmake_version = LooseVersion(re.search(r'version\s*([\d.]+)',
-                                         out.decode()).group(1))
-            if cmake_version < '3.1.0':
+            cmake_version = parse(re.search(r'version\s*([\d.]+)',
+                                            out.decode()).group(1))
+            if cmake_version < parse('3.1.0'):
                 raise RuntimeError("CMake >= 3.1.0 is required on Windows")
 
         for ext in self.extensions:
